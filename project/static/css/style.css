@@ -1,0 +1,62 @@
+/* 全局样式 */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 登录/注册卡片样式 */
+.auth-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.auth-card .card-body {
+    padding: 2.5rem;
+}
+
+/* 按钮样式 */
+.btn-primary {
+    background-color: #4a90e2;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+}
+
+/* 表单样式 */
+.form-control {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* 验证码样式 */
+.captcha-img {
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    padding: 5px;
+    background: #fff;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .auth-card .card-body {
+        padding: 1.5rem;
+    }
+}

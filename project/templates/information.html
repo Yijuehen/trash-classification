@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>知识星球</title>
+    <style>
+        .poem {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.6;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            background: url('{{ url_for('static', filename='images/earth.jpg') }}') center/cover no-repeat;
+            padding: 100px 0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .content-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .example-list {
+            margin-top: 30px;
+        }
+        
+        .example-list table {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg auth-card p-4">
+            <h1 class="text-center mb-4">知识星球</h1>
+            
+            <div class="hero-section">
+                <div class="poem text-center">
+                    <p>垃圾分类，是文明的印记，</p>
+                    <p>是地球母亲的轻声细语。</p>
+                    <p>它告诉我们，</p>
+                    <p>每一件废弃物都有它的归处，</p>
+                    <p>每一次分类都是对未来的承诺。</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <p>在这个蓝色星球上，我们与自然共生共荣。垃圾分类不仅仅是一种行为，更是一种态度，一种对地球的深情告白。当我们细心地将每一件垃圾放入正确的分类箱时，我们正在为地球的未来播下希望的种子。</p>
+                <p>想象一下，一个被妥善分类的塑料瓶，经过回收处理，可能重获新生，成为一件崭新的物品；而一袋厨余垃圾，经过发酵处理，可以转化为滋养大地的有机肥料。这就是垃圾分类的魔力，它让废弃物焕发新生，让资源循环不息。</p>
+                <img src="../static/images/recycle.jpg" class="img-fluid rounded mb-3" alt="回收利用">
+                <p>让我们携手同行，用行动诠释对地球的爱。每一次分类，都是对美好未来的投资；每一个环保选择，都是对绿色生活的承诺。垃圾分类，从你我做起，让我们的星球更加美丽，让我们的未来更加光明。</p>
+            </div>
+
+            <div class="example-list">
+                <h2 class="mt-4">常见垃圾分类及处理方法</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>垃圾类型</th>
+                            <th>分类</th>
+                            <th>处理方法</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>报纸、纸箱</td>
+                            <td>可回收物</td>
+                            <td>压平后放入可回收物垃圾桶</td>
+                        </tr>
+                        <tr>
+                            <td>玻璃瓶</td>
+                            <td>可回收物</td>
+                            <td>清洗后放入可回收物垃圾桶</td>
+                        </tr>
+                        <tr>
+                            <td>塑料瓶</td>
+                            <td>可回收物</td>
+                            <td>压扁后放入可回收物垃圾桶</td>
+                        </tr>
+                        <tr>
+                            <td>剩菜剩饭</td>
+                            <td>厨余垃圾</td>
+                            <td>沥干水分后放入厨余垃圾桶</td>
+                        </tr>
+                        <tr>
+                            <td>电池</td>
+                            <td>有害垃圾</td>
+                            <td>放入有害垃圾收集点</td>
+                        </tr>
+                        <tr>
+                            <td>陶瓷碎片</td>
+                            <td>其他垃圾</td>
+                            <td>放入其他垃圾桶</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 text-muted">
+        <p>知识星球 &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

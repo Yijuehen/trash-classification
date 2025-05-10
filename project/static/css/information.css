@@ -1,0 +1,38 @@
+.poem {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.6;
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+}
+
+.hero-section {
+    background: url('../images/earth.jpg') center/cover no-repeat;
+    padding: 100px 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.content-section {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.example-list {
+    margin-top: 30px;
+}
+
+.example-list table {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0极简风格
+}

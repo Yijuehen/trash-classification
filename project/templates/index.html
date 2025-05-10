@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <title>垃圾分类识别系统</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg auth-card p-4">
+            <div class="text-center mb-4">
+                <h1 class="display-4 text-primary">垃圾分类识别系统</h1>
+                <p class="lead text-muted">上传图片进行垃圾分类识别</p>
+                <div class="text-end">
+                    <span class="me-3">欢迎, {{ username }}</span>
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">退出登录</a>
+                </div>
+            </div>
+            
+            <form action="/classify" method="post" enctype="multipart/form-data" class="mb-4">
+                <div class="card auth-card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">上传图片</h5>
+                        <div class="input-group">
+                            <input type="file" name="file" accept="image/*" class="form-control" required>
+                            <button type="submit" class="btn btn-primary">识别</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            {% if prediction %}
+            <div class="result mt-4">
+                <div class="card auth-card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">识别结果</h5>
+                        <div class="alert alert-success">
+                            <h2 class="mb-3">分类结果：{{ prediction }}</h2>
+                            <p class="mb-0">处理方法：{{ disposal_method }}</p>
+                        </div>
+                        <div class="card auth-card" style="max-width: 500px; margin: 0 auto;">
+                            <img src="{{ url_for('static', filename='uploads/' + image_path) }}" class="card-img-top" alt="Uploaded Image" style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 py-4 bg-light">
+        <div class="mb-3">
+            <a href="/information" class="btn btn-outline-success btn-lg mx-2">知识星球</a>
+            <a href="/robot" class="btn btn-outline-primary btn-lg mx-2">聊天助手</a>
+        </div>
+        <p class="mb-0">垃圾分类识别系统 &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

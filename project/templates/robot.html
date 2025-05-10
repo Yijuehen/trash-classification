@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <title>垃圾分类助手</title>
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .message {
+            max-width: 70%;
+            word-wrap: break-word;
+            margin: 10px 0;
+            padding: 12px 15px;
+        }
+        .user-message {
+            background-color: #e9f5ff;
+            margin-left: auto;
+            border-radius: 15px 15px 0 15px;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            margin-right: auto;
+            border-radius: 15px 15px 15px 0;
+        }
+        .message-time {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+            text-align: right;
+        }
+        .input-group {
+            margin-top: 20px;
+        }
+        .quick-questions {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="chat-container">
+            <h2 class="text-center mb-4">垃圾分类助手</h2>
+            <div class="chat-box" id="chat-box">
+                <div class="message bot-message">
+                    <div class="message-content">您好！我是垃圾分类助手，请问有什么可以帮您的？</div>
+                    <div class="message-time" id="welcome-time"></div>
+                </div>
+                <script>
+                    document.getElementById('welcome-time').textContent = 
+                        new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                </script>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" class="form-control" id="user-input" placeholder="请输入您的问题...">
+                <button class="btn btn-primary" id="send-btn">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+            color: #666;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatBox = document.getElementById('chat-box');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'loading-indicator';
+            loadingIndicator.textContent = '正在处理中...';
+            chatBox.parentNode.insertBefore(loadingIndicator, chatBox.nextSibling);
+
+            function addMessage(sender, text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = text; // 使用textContent防止XSS
+                
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'message-time';
+                timeDiv.textContent = new Date().toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit'
+                });
+
+                messageDiv.appendChild(contentDiv);
+                messageDiv.appendChild(timeDiv);
+                chatBox.appendChild(messageDiv);
+
+                // 滚动到底部
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            async function sendMessage() {
+                const question = userInput.value.trim();
+                if (!question) return;
+
+                // 添加用户消息
+                addMessage('user', question);
+                userInput.value = '';
+                userInput.disabled = true;
+                sendBtn.disabled = true;
+                loadingIndicator.style.display = 'block';
+
+                try {
+                    const response = await fetch('/ask', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ question })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({ error: '无法解析错误信息' }));
+                        throw new Error(errorData.error || `HTTP错误: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    if (data.response) {
+                        addMessage('bot', data.response);
+                    } else {
+                        throw new Error('无效的API响应');
+                    }
+                } catch (error) {
+                    console.error('请求失败:', error);
+                    addMessage('bot', `错误: ${error.message || '无法处理您的请求'}`);
+                } finally {
+                    userInput.disabled = false;
+                    sendBtn.disabled = false;
+                    loadingIndicator.style.display = 'none';
+                    userInput.focus();
+                }
+            }
+
+            // 事件监听
+            sendBtn.addEventListener('click', sendMessage);
+            userInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // 页面加载后聚焦输入框
+            userInput.focus();
+        });
+    </script>
+</body>
